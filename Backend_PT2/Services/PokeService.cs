@@ -24,7 +24,7 @@ public class PokeService : IPokeService
 
     public async Task<List<PokemonDto>> GetPokemons(int limit, int offset, string? type)
     {
-        // 1. Guardar Log
+        // Guardar Log
         _db.PokemonHistory.Add(new SearchLog 
         { 
             LimitParam = limit, OffsetParam = offset, SearchTerm = type ?? "ALL", DateAccessed = DateTime.Now 

@@ -144,7 +144,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     this.startAutoPlay();
   }
 
-  // --- Filtros y Paginación --- (Igual que antes)
+  // --- Filtros y Paginación ---
 
   onLimitChange() {
     this.offset = 0;
