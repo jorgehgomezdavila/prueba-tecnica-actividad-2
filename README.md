@@ -9,18 +9,29 @@ Solución técnica para la exploración del universo Pokémon implementando una 
 
 ---
 
+## Objetivo PT2
+
+Verificar la lectura y comprensión de la documentación de una API externa distinta, manteniendo buenas
+prácticas de consumo, manejo de estados y uso de un backend intermedio.
+
+---
+
 ## 🏛️ Arquitectura y Optimización
 
 El Backend actúa como una capa de abstracción sobre la PokeAPI pública para resolver problemas de rendimiento y estructura de datos:
 
-### 1. Patrón BFF (Backend for Frontend)
+---
+
+### Patrón BFF (Backend for Frontend)
 
 El Frontend no consume `pokeapi.co` directamente. El Backend propio centraliza las peticiones, permitiendo:
 
 - **Enriquecimiento de Datos:** La API pública devuelve URLs para las imágenes. Nuestro Backend procesa estas URLs, extrae el ID y construye la URL directa al CDN de arte oficial (`official-artwork`), entregando al frontend un objeto listo para usar.
 - **Auditoría:** Cada interacción (búsqueda o cambio de página) se persiste en MySQL.
 
-### 2. Estrategia de Paginación (`Limit` & `Offset`)
+---
+
+### Estrategia de Paginación (`Limit` & `Offset`)
 
 A diferencia de la paginación por "Páginas" (1, 2, 3), este sistema implementa el estándar técnico de PokeAPI:
 
@@ -29,7 +40,9 @@ A diferencia de la paginación por "Páginas" (1, 2, 3), este sistema implementa
   - _Ejemplo:_ Para ver la página 2 con límite 5, el offset es 5 (saltar los primeros 5).
   - _Fórmula:_ `NewOffset = CurrentOffset ± Limit`.
 
-### 3. Estrategia de Búsqueda Híbrida
+---
+
+### Estrategia de Búsqueda Híbrida
 
 - **Por Nombre:** Consulta directa al endpoint de detalle.
 - **Por Tipo:** PokeAPI no soporta paginación nativa en el endpoint `/type`.
@@ -57,7 +70,7 @@ Ejecute el script `Database/schema.sql` en su cliente MySQL para crear la BD `Po
 ### 3. Ejecución del Frontend (Angular)
 
 1. Abra una nueva terminal y navegue al frontend:
-   - cd Frontend-PT1
+   - cd Frontend-PT2
 2. Instale las dependencias:
    - npm install
 3. Inicie el servidor de desarrollo:
@@ -88,3 +101,7 @@ Ejecute el script `Database/schema.sql` en su cliente MySQL para crear la BD `Po
 | `/Frontend/src/app/services`      | Lógica de cliente HTTP                          |
 | `/Frontend/src/app/app.component` | Lógica de UI, carrusel y filtros                |
 | `/Database`                       | Scripts SQL                                     |
+
+---
+
+Hecho por **Jorge Humberto Gomez De Avila (DESARROLLADOR FULLSTACK)** para la Prueba Técnica.
