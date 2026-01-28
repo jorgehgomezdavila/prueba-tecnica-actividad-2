@@ -1,0 +1,21 @@
+/* Asegura que la imagen pueda salirse de la caja */
+.group {
+  transform-style: preserve-3d;
+}
+
+/* Efecto de sombra suave para la imagen flotante */
+img {
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+}
+
+/* Scroll Snap comportamiento */
+.snap-x {
+  scroll-snap-type: x mandatory;
+}
+.snap-center {
+  scroll-snap-align: center;
+}
+
+*:focus {
+  outline: none;
+}

@@ -1,0 +1,309 @@
+<div
+  class="min-h-screen bg-slate-50 font-sans pb-20 selection:bg-cyan-500 selection:text-white overflow-x-hidden"
+>
+  <header>
+    <nav
+      class="sticky top-0 z-30 border-b border-slate-200 bg-white/80 backdrop-blur"
+    >
+      <div
+        class="mx-auto flex max-w-7xl items-center justify-between px-6 py-3"
+      >
+        <!-- LADO IZQUIERDO -->
+        <div class="flex items-center gap-3">
+          <!-- Logo -->
+          <div
+            class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-sky-400 to-blue-600 text-white font-bold shadow-md"
+          >
+            TP
+          </div>
+
+          <!-- Título -->
+          <div class="leading-tight">
+            <div class="flex items-center gap-1">
+              <span class="text-sm font-semibold text-slate-800">
+                Prueba Tecnica
+              </span>
+              <span class="text-sm font-semibold text-sky-500">#2</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- LADO DERECHO -->
+        <div class="flex items-center gap-4">
+          <!-- Info Usuario -->
+          <div class="hidden sm:flex flex-col text-right leading-tight">
+            <span class="text-sm font-semibold text-slate-700">
+              Jorge Humberto Gomez De Avila
+            </span>
+            <span class="text-xs text-slate-400"
+              >jorgeirongead07.gmail.com</span
+            >
+          </div>
+
+          <div
+            class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-cyan-400 text-cyan-600 font-bold"
+          >
+            JH
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section
+      class="bg-gradient-to-r from-sky-500 to-emerald-500 text-white py-12 shadow-xl relative overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay"
+      ></div>
+      <div
+        class="absolute -top-24 -right-24 w-96 h-96 bg-white/20 rounded-full blur-3xl"
+      ></div>
+      <div
+        class="absolute -bottom-24 -left-24 w-72 h-72 bg-emerald-300/30 rounded-full blur-3xl"
+      ></div>
+
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <h1
+          class="text-5xl md:text-6xl font-black tracking-tighter mb-2 drop-shadow-md"
+        >
+          Poke <span class="text-emerald-100">API - PT2</span>
+        </h1>
+        <p class="text-white/90 font-bold tracking-[0.3em] text-xs uppercase">
+          PRUEBA TECNICA • 2
+        </p>
+      </div>
+    </section>
+  </header>
+
+  <main class="container mx-auto px-4 -mt-10 relative z-20 max-w-7xl">
+    <div
+      class="bg-white/90 backdrop-blur-xl border border-white/50 p-4 md:p-6 rounded-3xl shadow-xl mb-12 flex flex-col xl:flex-row gap-5 items-center justify-between animate-fade-in"
+    >
+      <!-- Filtros -->
+      <div class="flex flex-col md:flex-row gap-3 w-full xl:w-auto flex-grow">
+        <div class="relative w-full md:w-72 group">
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            (keyup.enter)="search()"
+            placeholder="Nombre del Pokémon..."
+            class="w-full pl-12 pr-4 py-3.5 bg-slate-100 border-none rounded-2xl focus:ring-2 focus:ring-emerald-400 outline-none transition-all font-semibold text-slate-700"
+          />
+          <span class="absolute left-4 top-3.5 text-xl opacity-50">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-search"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg
+          ></span>
+        </div>
+
+        <div class="relative w-full md:w-56">
+          <select
+            [(ngModel)]="selectedType"
+            (change)="onFilterChange()"
+            class="w-full pl-10 pr-8 py-3.5 bg-slate-100 border-none rounded-2xl focus:ring-2 focus:ring-emerald-400 outline-none font-semibold text-slate-700 appearance-none cursor-pointer"
+          >
+            <option value="">Tipo: Todos</option>
+            <option value="fire">🔥 Fuego</option>
+            <option value="water">💧 Agua</option>
+            <option value="grass">🌿 Planta</option>
+            <option value="electric">⚡ Eléctrico</option>
+            <option value="psychic">🔮 Psíquico</option>
+            <option value="dragon">🐉 Dragón</option>
+          </select>
+          <span class="absolute left-4 top-3.5 text-slate-400">⚡</span>
+        </div>
+
+        <button
+          (click)="search()"
+          class="px-8 py-3.5 bg-slate-800 text-white font-bold rounded-2xl hover:bg-slate-900 transition-all shadow-lg active:scale-95"
+        >
+          Buscar
+        </button>
+      </div>
+
+      <!-- Selector Cantidad -->
+      <div class="flex items-center gap-3 bg-slate-100 p-2 rounded-2xl">
+        <span class="text-xs font-bold text-slate-500 uppercase pl-2"
+          >Ver:</span
+        >
+        <select
+          [(ngModel)]="limit"
+          (change)="onLimitChange()"
+          class="bg-white text-slate-800 font-bold py-2 px-4 rounded-xl shadow-sm border-none cursor-pointer focus:ring-2 focus:ring-emerald-400 outline-none"
+        >
+          <option [value]="5">5</option>
+          <option [value]="10">10</option>
+          <option [value]="20">20</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div
+      *ngIf="loading()"
+      class="py-32 flex flex-col items-center justify-center"
+    >
+      <div class="relative w-20 h-20">
+        <div
+          class="absolute inset-0 border-4 border-slate-200 rounded-full"
+        ></div>
+        <div
+          class="absolute inset-0 border-4 border-emerald-500 rounded-full border-t-transparent animate-spin"
+        ></div>
+      </div>
+      <p class="text-slate-400 font-bold mt-6 tracking-widest animate-pulse">
+        CARGANDO...
+      </p>
+    </div>
+
+    <!-- CAROUSEL AREA -->
+    <div
+      *ngIf="!loading() && pokemons().length > 0"
+      class="relative group/carousel animate-fade-in mb-20"
+    >
+      <!-- Botones de Navegación -->
+      <button
+        (click)="scrollLeft()"
+        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-10 z-30 w-14 h-14 bg-white rounded-full shadow-2xl flex items-center justify-center text-slate-700 hover:text-emerald-600 hover:scale-110 transition-all opacity-0 group-hover/carousel:opacity-100 cursor-pointer border border-slate-50"
+      >
+        <svg
+          width="28"
+          height="28"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <button
+        (click)="scrollRight()"
+        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-10 z-30 w-14 h-14 bg-white rounded-full shadow-2xl flex items-center justify-center text-slate-700 hover:text-emerald-600 hover:scale-110 transition-all opacity-0 group-hover/carousel:opacity-100 cursor-pointer border border-slate-50"
+      >
+        <svg
+          width="28"
+          height="28"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <!-- Contenedor Scroll -->
+      <div
+        #carouselContainer
+        (scroll)="onScroll($event)"
+        class="flex gap-10 overflow-x-auto px-10 py-20 snap-x snap-mandatory scroll-smooth hide-scrollbar"
+      >
+        @for (poke of pokemons(); track poke.id) {
+          <div
+            class="snap-center shrink-0 w-60 h-[24rem] -mt-20 relative group cursor-pointer transition-all duration-300 hover:-translate-y-3 perspective"
+          >
+            <div
+              class="absolute bottom-6 left-6 right-6 h-6 bg-emerald-900/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            ></div>
+
+            <div
+              class="mt-10 h-full bg-white rounded-[2.0rem] p-6 pt-16 text-center shadow-xl border border-slate-50 relative z-10 overflow-hidden group-hover:shadow-2xl transition-all duration-300 flex flex-col justify-between"
+            >
+              <div
+                class="absolute top-4 right-4 bg-gradient-to-r via-emerald-500 to-green-700 from-slate-700 to-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md z-20"
+              >
+                #{{ poke.id }}
+              </div>
+
+              <div class="h-20"></div>
+
+              <div class="relative z-20">
+                <h3
+                  class="text-3xl font-black text-slate-800 capitalize mb-2 group-hover:text-emerald-600 transition-colors tracking-tight"
+                >
+                  {{ poke.name }}
+                </h3>
+                <p
+                  class="text-sm font-bold text-slate-400 uppercase tracking-widest"
+                >
+                  Pokémon
+                </p>
+              </div>
+
+              <div
+                class="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-400 via-emerald-400 to-green-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"
+              ></div>
+            </div>
+
+            <div
+              class="absolute top-16 left-0 right-0 flex justify-center z-30 pointer-events-none"
+            >
+              <img
+                [src]="poke.image"
+                class="w-64 h-84 object-contain drop-shadow-xl transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3 group-hover:-translate-y-2 filter hover:brightness-105"
+              />
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="flex justify-center gap-2 mt-4">
+        @for (item of pokemons(); track item.id; let i = $index) {
+          <button
+            (click)="scrollToIndex(i)"
+            class="h-2 rounded-full transition-all duration-500"
+            [ngClass]="
+              activeCardIndex === i
+                ? 'bg-emerald-500 w-8'
+                : 'bg-slate-300 w-2 hover:bg-slate-400'
+            "
+          ></button>
+        }
+      </div>
+    </div>
+
+    <div
+      *ngIf="!loading() && pokemons().length === 0"
+      class="text-center py-20 opacity-50"
+    >
+      <h3 class="text-2xl font-bold">Sin resultados</h3>
+    </div>
+
+    <div
+      *ngIf="!loading() && !isSearching && pokemons().length > 0"
+      class="flex justify-center items-center gap-8 mt-8 border-t border-slate-200 pt-8"
+    >
+      <button
+        (click)="changePage(-1)"
+        [disabled]="offset === 0"
+        class="text-slate-500 hover:text-emerald-600 font-bold disabled:opacity-30 transition-colors flex items-center gap-2"
+      >
+        ← Anterior
+      </button>
+      <div
+        class="px-6 py-2 bg-slate-800 text-white rounded-xl font-mono font-bold shadow-lg"
+      >
+        Página {{ offset / limit + 1 }}
+      </div>
+      <button
+        (click)="changePage(1)"
+        class="text-slate-500 hover:text-emerald-600 font-bold transition-colors flex items-center gap-2"
+      >
+        Siguiente →
+      </button>
+    </div>
+  </main>
+</div>
